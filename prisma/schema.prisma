@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL") //.envの環境変数を読み込んでいる
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Account {
