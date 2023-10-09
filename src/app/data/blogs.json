@@ -1,0 +1,16 @@
+{
+  "blogs": [
+    {
+      "title": "Blog 1",
+      "content": "Content 1"
+    },
+    {
+      "title": "Blog 2",
+      "content": "Content 2"
+    },
+    {
+      "title": "Blog 3",
+      "content": "Content 3"
+    }
+  ]
+}
