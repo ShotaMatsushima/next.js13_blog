@@ -24,10 +24,25 @@ export const GET = async (req: Request, res: NextResponse) => {
   try { //実際に実行する処理
     await main();
     const blogs = await prisma.blog.findMany();
-    return NextResponse.json( {message: "Success", blogs}, {status: 200});
+    return NextResponse.json({message: "Success", blogs}, {status: 200});
   } catch (err) { //エラーが発生した場合の処理
-    return NextResponse.json( {message: "Error", err}, {status: 500});
+    return NextResponse.json({message: "Error", err}, {status: 500});
   } finally { //成功・失敗に関わらず実行する処理
-    await prisma.$disconnect(); 
+    await prisma.$disconnect();
+  }
+}
+
+//blogs投稿用のAPI
+export const POST = async (req: Request, res: NextResponse) => {
+  try { //実際に実行する処理
+    const {title, content} = await req.json();
+
+    await main();
+    const blogs = await prisma.blog.create({data: {title, content}});
+    return NextResponse.json({message: "Success", blogs}, {status: 201});
+  } catch (err) { //エラーが発生した場合の処理
+    return NextResponse.json({message: "Error", err}, {status: 500});
+  } finally { //成功・失敗に関わらず実行する処理
+    await prisma.$disconnect();
   }
 }
