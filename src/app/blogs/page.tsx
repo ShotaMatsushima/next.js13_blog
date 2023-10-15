@@ -1,4 +1,4 @@
-  import { getAllBlogs } from '@/api'
+  import { getAllBlogs } from '../api/blogs/route'
   import Blogs from '../components/Blogs'
 
   export default async function Blog() {
