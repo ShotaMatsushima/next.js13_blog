@@ -41,7 +41,7 @@ export default async function Home() {
                 <h2 className="mr-auto font-semibold">{blog.title}</h2>
               </div>
               <Link
-                href={`/blogs/edit/${blog.id}`}
+                href={`/blog/edit/${blog.id}`}
                 className="px-4 py-1 text-center text-xl bg-slate-900 rounded-md font-semibold text-slate-200"
               >
                 Edit
