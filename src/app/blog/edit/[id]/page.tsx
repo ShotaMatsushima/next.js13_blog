@@ -12,9 +12,6 @@ const getBlogByID = async (id: string) => {
   return data.blog;
 };
 
-
-
-
 const editBlog = async (title: string | undefined, content: string | undefined, id: string) => {
   const res = await fetch(`http://localhost:3000/api/blogs/${id}`, {
     method: "PUT",
@@ -22,6 +19,16 @@ const editBlog = async (title: string | undefined, content: string | undefined, 
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ title, content, id }),
+  });
+  return res.json();
+};
+
+const deleteBlog = async (id: string) => {
+  const res = await fetch(`http://localhost:3000/api/blogs/${id}`, {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
   return res.json();
 };
@@ -40,6 +47,13 @@ const EditPost = ({params}: {params: {id: string}}) => {
     router.push("/");
     router.refresh();
   };
+
+  const handleDelete = async () => {
+    toast.loading("Loading...", {id: "1"})
+    await deleteBlog(params.id);
+    router.push("/");
+    router.refresh();
+  }
 
   useEffect(() => {
     getBlogByID(params.id).then((data) => {
@@ -74,7 +88,7 @@ const EditPost = ({params}: {params: {id: string}}) => {
           <button className="font-semibold px-4 py-2 shadow-xl bg-slate-200 rounded-lg m-auto hover:bg-slate-100">
             更新
           </button>
-          <button className="ml-2 font-semibold px-4 py-2 shadow-xl bg-red-400 rounded-lg m-auto hover:bg-slate-100">
+          <button onClick={handleDelete} className="ml-2 font-semibold px-4 py-2 shadow-xl bg-red-400 rounded-lg m-auto hover:bg-slate-100">
             削除
           </button>
         </form>
