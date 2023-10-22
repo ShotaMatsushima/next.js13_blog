@@ -3,6 +3,7 @@
 import React from 'react'
 import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import { Toaster, toast } from 'react-hot-toast'
 
 const postBlog = async (title: string | undefined, content: string | undefined) => {
   const res = await fetch("http://localhost:3000/api/blogs", {
@@ -23,13 +24,16 @@ const PostBlog = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    toast.loading("Loading...", {id: "1"})
     await postBlog(titleRef.current?.value, contentRef.current?.value);
     router.push("/");
     router.refresh();
+    toast.success("success", {id: "1"})
   };
 
   return (
   <>
+    <Toaster />
     <div className="w-full m-auto flex my-4">
       <div className="flex flex-col justify-center items-center m-auto">
         <p className="text-2xl text-slate-200 font-bold p-3">ブログ新規作成 🚀</p>
